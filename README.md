@@ -1,2 +1,1 @@
-# project-defaults
-Preferred defaults for git, linting, formatting, etc..
+My personal development environment defaults for git, Github, linting, formatting, etc..

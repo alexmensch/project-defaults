@@ -1,0 +1,8 @@
+commit.gpgsign=true
+user.signingkey=DCEACD22495B9A33
+user.email=git@alxm.me
+user.name=Alex Marshall
+push.autosetupremote=true
+alias.cm=commit -a -m
+alias.s=status
+alias.d=diff
