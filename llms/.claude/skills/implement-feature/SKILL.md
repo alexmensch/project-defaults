@@ -1,15 +1,15 @@
 ---
 name: implement-feature
-description: Follow a standard workflow for feature implementation in a project that ensures that tests are always written first based on the feature spec description, followed by implementation against those scenarios, and ending with a code review that is always performed before a pull request is submitted to the default branch of the project's code base.
+description: Follow a standard workflow for feature implementation in a project that ensures that a technical spec drives both test writing and implementation in parallel, followed by a code review that is always performed before a pull request is submitted to the default branch of the project's code base.
 ---
 
 When implementing a new feature or new functionality in an existing codebase, you must adhere to the steps that follow with the goal of creating high quality, efficient, and clear code at all times. Follow these steps in strict order:
 
 1. Before starting work, always create a new branch. Make sure that the default branch is at the latest version and make sure the new branch is created from the default branch. Never work in the default branch for the project, which is usually `master`, but may also be `main` in some cases. I do not care what the branch is called, you can decide.
-2. Require descriptive precision from the user's request when starting to implement a new feature. If there is ambiguity in changes that the user is requesting, without being pedantic, you must ask the user for clarification. Pass this information to the technical-spec agent, which will take this information and create a technical spec that matches the discrete user requirements.
-3. A separate agent, test-writer, must write tests for the requested functionality from the user. No code will be written until these tests have been written in the codebase. Once test-writer has completed its work, tests will fail until you write code that satisfies those tests.
-4. You will write the code against the technical spec that the technical-spec agent created. Once you have written all of your code, and only after you have written all of your code, you will run all tests for the whole project. In no circumstances will you change any code in the tests without confirming with the user first. The strong principle here is that tests are written to cover desired functionality, not just to pass. Never change tests just to make them pass, you must determine whether there is a genuine bug in the code you wrote first. If you think there is a bug in a test, confirm with the user first. This step is completed when all tests pass.
-5. Next, you will invoke the code-reviewer agent, which will review the codebase and interact with the user as necessary to make additional refinements.
+2. Require descriptive precision from the user's request when starting to implement a new feature. If there is ambiguity in changes that the user is requesting, without being pedantic, you must ask the user for clarification. Pass the clarified requirements to the technical-spec agent. The technical-spec agent will deeply analyse the codebase, produce a structured technical specification with a requirements table, and confirm the spec with the user within its own session. You will receive the approved spec back.
+3. Once you have the approved technical spec, start two things in parallel: hand the full technical spec to the test-writer agent (which runs in the background in an isolated worktree), and begin writing implementation code yourself against the same spec. Both you and test-writer work from the requirements table in the technical spec.
+4. Once both you and the test-writer have finished, merge the test-writer's worktree changes into the current branch. Then run all tests for the whole project. In no circumstances will you change any code in the tests without confirming with the user first. The strong principle here is that tests are written to cover desired functionality, not just to pass. Never change tests just to make them pass — you must determine whether there is a genuine bug in the code you wrote first. If you think there is a bug in a test, confirm with the user first. This step is completed when all tests pass.
+5. Next, invoke the code-reviewer agent. It will review all changes on the branch, present findings to the user, make the user's approved changes, and create a single commit for the code review fixes.
 6. Run the linting tool that's configured for the project.
 7. Run either the build command or mock deploy command for the project to ensure there are no build errors. Ensure that you do not build or deploy the project to production, you are only ensuring the project builds, deploys, or compiles correctly.
 8. Update README.md and CLAUDE.md in the project root for changes that are functionally noticeable to a user or developer of this codebase. Bug fixes, refactors, internal renaming, and test changes do not require documentation updates unless they change something observable from the outside.
@@ -22,16 +22,16 @@ When implementing a new feature or new functionality in an existing codebase, yo
 
 If the agents described above are not available, stop the session and ask the user to correct this. The intent is that they are located in the user's configuration, not the project.
 
-### Handovers and sequencies
+### Handovers and sequences
 
 The data handovers and sequencing listed in the steps above are:
 
-1. User input -> your review -> technical-spec agent
-2. technical-spec agent -> agent will ask user to review before completion -> technical spec that you receive
-2. technical spec -> test-writer agent agent in background and isolation
-3. You write code against technical spec
-4. After test-writer has finished, and you have finished writing code, you run tests against your code
-5. Remaining steps completed in order as described above
+1. User input -> you clarify -> clarified requirements passed to technical-spec agent (foreground)
+2. technical-spec agent analyses codebase, produces spec, confirms with user in its own session -> approved technical spec returned to you
+3. You hand the approved spec to test-writer (background, isolated worktree) AND begin writing code yourself — these happen in parallel
+4. Once both finish -> merge test-writer's worktree into the current branch -> run all tests
+5. code-reviewer reviews, presents findings to user, makes approved fixes, commits
+6. Remaining steps (lint, build, docs, semver, PR) completed in order
 
 ## Commit granularity
 
