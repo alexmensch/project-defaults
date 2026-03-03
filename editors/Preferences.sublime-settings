@@ -1,0 +1,15 @@
+{
+  "ignored_packages":
+  [
+    "Vintage",
+  ],
+  "index_files": false,
+  "translate_tabs_to_spaces": true,
+  "tab_size": 2,
+  "color_scheme": "auto",
+  "dark_color_scheme": "Solarized (dark).sublime-color-scheme",
+  "light_color_scheme": "Solarized (light).sublime-color-scheme",
+  "font_size": 14,
+  "rulers": [72, 80],
+  "wrap_width": 90
+}
