@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+# Add project-specific pre-commit checks above this line.
+# (e.g. asset validation, schema checks for tracked data files.)

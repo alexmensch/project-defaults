@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+# Run git-lfs pre-push hook if installed (no-op otherwise).
+command -v git-lfs >/dev/null 2>&1 && git lfs pre-push "$@"
