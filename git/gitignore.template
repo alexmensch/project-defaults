@@ -1,0 +1,36 @@
+# OS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+
+# Node
+node_modules/
+.cache
+.env
+.env.local
+
+# Build output (project-specific — adjust)
+dist/
+build/
+_site/
+
+# Cloudflare Wrangler
+.wrangler
+
+# Claude Code (gitignore the dir but keep skills tracked)
+.claude/*
+!.claude/skills/
+!.claude/skills/**
+
+# Beads / Dolt (added by bd init)
+# Note: .beads/ itself is NOT ignored — issues.jsonl is the source of truth
+# and propagates via git push.
+.dolt/
+*.db
+.beads-credential-key
+
+# Generated files (project-specific — remove if N/A)
+permalinks.txt
+.assetsignore

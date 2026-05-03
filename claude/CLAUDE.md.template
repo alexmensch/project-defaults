@@ -1,0 +1,37 @@
+# CLAUDE.md
+
+Guidance for Claude Code when working in this repo. Replace placeholders
+(`{{...}}`) with project specifics; delete sections that don't apply.
+
+## Build / dev commands
+
+```bash
+{{INSTALL_COMMAND}}        # e.g. pnpm install
+{{BUILD_COMMAND}}          # e.g. pnpm run build
+{{TEST_COMMAND}}           # e.g. pnpm test
+{{LINT_COMMAND}}           # e.g. pnpm run lint
+{{DEV_COMMAND}}            # e.g. pnpm run dev or pnpm run 11ty:watch
+```
+
+## Architecture
+
+{{One-paragraph summary of what this project is and how it's structured.}}
+
+### Key files
+
+- `{{PATH}}` — {{purpose}}
+- `{{PATH}}` — {{purpose}}
+
+### Directory layout
+
+- `src/` — {{...}}
+- `tests/` — {{...}}
+
+## Conventions
+
+{{List repo-specific patterns Claude should follow: naming, code style choices
+not enforced by linters, where to add new files, etc. Keep terse — Claude
+re-reads this file every session.}}
+
+<!-- The bd integration block below is appended automatically by
+     `bd hooks integrate`. Do not edit between the BEGIN/END markers. -->
