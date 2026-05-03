@@ -82,6 +82,12 @@ The template contains:
   policy, which applies even in non-bd projects since it just blocks one
   user-level cache directory)
 
+Note: `.claude/settings.json` is gitignored (see `git/gitignore.template`),
+so it never gets committed and each clone needs its own copy. If bd is in
+use, `bd init` (step 6) reformats this file and re-registers its hooks, so
+the order of step 4 vs step 6 is interchangeable — running them in either
+order converges on the same result.
+
 ### 5. `CLAUDE.md` (and `AGENTS.md` if appropriate)
 
 If absent, copy `claude/CLAUDE.md.template` to repo root as `CLAUDE.md`. Fill
@@ -97,13 +103,30 @@ Repeat for `AGENTS.md` if the user wants one.
 
 ```bash
 bd init                       # creates .beads/ with embedded Dolt
-bd hooks install              # installs git hooks into .git/hooks/
+bd hooks install              # installs hooks under .beads/hooks/
 ```
 
-The hooks are installed into `.git/hooks/`, not `.husky/`, so they don't
-collide with husky. Verify with `ls .git/hooks/`.
+bd 1.x installs its hooks into `.beads/hooks/` and points `core.hooksPath`
+at that directory. To stay compatible with husky, bd symlinks
+`.beads/hooks/_` → `../../.husky/_` so husky's chained hooks still fire.
+Don't look for hooks under `.git/hooks/` — verify the install with
+`bd hooks list` instead.
 
 `.beads/`, `*.db`, and `.dolt/` should already be in `.gitignore` from step 2.
+
+**Worktree caveat.** If you're applying SETUP.md from inside a git
+worktree, `bd init` writes `.beads/` to the **main** checkout's filesystem
+(it follows `git rev-parse --git-common-dir`), so the worktree won't see
+the new directory and `git add .beads/` from the worktree will fail. Two
+options:
+- Run `bd init` from the main checkout *before* entering the worktree, then
+  `cp -R <main-checkout>/.beads <worktree>/.beads` so the worktree can
+  stage and commit it.
+- Or run `bd init` from the worktree, then `cp -R` the resulting `.beads/`
+  back into the worktree before staging.
+
+Either way, the committed `.beads/issues.jsonl` is the source of truth that
+propagates via `git push`.
 
 Then seed the default cross-project memories. Open
 `beads/default-memories.md` from project-defaults and run the
