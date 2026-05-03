@@ -7,8 +7,8 @@ Claude Code config, husky, beads.
 
 Open Claude Code in a fresh repo and say:
 
-> Read `~/github/alexmensch/project-defaults/SETUP.md` and apply the defaults
-> to this repo.
+> Read [SETUP.md](https://github.com/alexmensch/project-defaults/blob/master/SETUP.md)
+> from the project-defaults repo and apply the defaults to this repo.
 
 [`SETUP.md`](SETUP.md) is a self-contained prompt that walks Claude through
 the setup, asking the right questions and copying / merging the relevant

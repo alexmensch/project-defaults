@@ -2,13 +2,14 @@
 
 This file is a prompt for Claude Code. Drop into a target repo and say:
 
-> Read SETUP.md from `/Users/alexm/github/alexmensch/project-defaults` and apply the defaults to this repo.
+> Read SETUP.md from <https://github.com/alexmensch/project-defaults> and apply the defaults to this repo.
 
 Or copy this file into the target repo and say "follow SETUP.md".
 
-The repo at `~/github/alexmensch/project-defaults` is the source of truth for these
-templates. Read referenced files from there directly — do not assume their
-contents from this prompt.
+The repo at <https://github.com/alexmensch/project-defaults> is the source of
+truth for these templates. Read the referenced files directly from there — do
+not assume their contents from this prompt. If the repo is checked out
+locally, prefer reading from disk.
 
 ---
 
@@ -25,7 +26,7 @@ Confirm with the user (one batched question, not one-by-one):
 4. **GitHub branch protections?** — If yes: import via `gh` after pushing.
 
 Default if user says "just do the standard thing": Eleventy-style + bd + LFS
-+ branch protections (this matches alxm.me).
++ branch protections.
 
 If the target repo isn't a git repo yet, run `git init -b master` first.
 
@@ -35,7 +36,7 @@ Apply in order. Skip anything the user opted out of.
 
 ### 1. Lint and format configs
 
-Copy from `~/github/alexmensch/project-defaults/lint/` to the repo root:
+Copy from the `lint/` directory of project-defaults to the target repo root:
 
 - `.prettierrc`
 - `.prettierignore`
