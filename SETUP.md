@@ -105,6 +105,18 @@ collide with husky. Verify with `ls .git/hooks/`.
 
 `.beads/`, `*.db`, and `.dolt/` should already be in `.gitignore` from step 2.
 
+Then seed the default cross-project memories. Open
+`beads/default-memories.md` from project-defaults and run the
+`bd remember` block from there in the target repo. These are
+project-agnostic versions of memories that have proven useful across
+projects (concurrent-session etiquette, doc-update timing, bd authoring
+discipline, commit granularity, bd persistence, etc.). Confirm with
+`bd memories` after.
+
+The seeded bodies are deliberately generic — they should be rewritten in
+place via `bd remember --key <key> ...` as the project's actual paths,
+build commands, and doc layout become known.
+
 ### 7. GitHub (FUNDING + branch protections)
 
 - Copy `github/.github/FUNDING.yml` into the target's `.github/FUNDING.yml`.
