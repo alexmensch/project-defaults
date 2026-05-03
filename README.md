@@ -17,6 +17,7 @@ templates.
 ## Layout
 
 ```
+beads/          Default cross-project bd memories to seed after bd init
 claude/         Claude Code config — settings.json (with bd hooks +
                 memory-guard) and a CLAUDE.md template
 editors/        Sublime Text user preferences (one-off, not per-repo)
