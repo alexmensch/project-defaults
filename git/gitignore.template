@@ -24,6 +24,9 @@ _site/
 !.claude/skills/
 !.claude/skills/**
 
+# Husky (managed by `pnpm install` via the prepare script)
+.husky/_/
+
 # Beads / Dolt (added by bd init)
 # Note: .beads/ itself is NOT ignored — issues.jsonl is the source of truth
 # and propagates via git push.
