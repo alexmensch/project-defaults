@@ -140,9 +140,17 @@ The seeded bodies are deliberately generic — they should be rewritten in
 place via `bd remember --key <key> ...` as the project's actual paths,
 build commands, and doc layout become known.
 
-### 7. GitHub (FUNDING + branch protections)
+### 7. GitHub (FUNDING + branch protections + auto-delete)
 
 - Copy `github/.github/FUNDING.yml` into the target's `.github/FUNDING.yml`.
+- Enable auto-delete of merged branches so feature branches clean up
+  automatically post-merge (matches the assumption in the
+  `gh-auto-delete-on-merge` bd memory):
+
+```bash
+gh api repos/<owner>/<repo> --method PATCH -f delete_branch_on_merge=true
+```
+
 - For master branch protections: edit
   `github/master-branch-protections.json` to set `source` to the target repo
   (`<owner>/<repo>`) and `id` to `null` (so GitHub assigns a new one), then:
@@ -152,7 +160,7 @@ gh api repos/<owner>/<repo>/rulesets --method POST \
   --input github/master-branch-protections.json
 ```
 
-Do this only after the first push so the repo exists on GitHub.
+Do all of these only after the first push so the repo exists on GitHub.
 
 ### 8. Git config
 
