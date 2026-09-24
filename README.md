@@ -22,7 +22,8 @@ claude/         Claude Code config — settings.json (with bd hooks +
                 memory-guard) and a CLAUDE.md template
 editors/        Sublime Text user preferences (one-off, not per-repo)
 git/            Global git config + .gitignore / .gitattributes templates
-github/         FUNDING.yml + master branch protection ruleset (gh import)
+github/         apply-settings.sh + the repo settings, default-branch ruleset
+                and labels it applies; FUNDING.yml
 husky/          Default pre-commit and pre-push hooks
 lint/           Prettier, ESLint, Stylelint, markdownlint configs +
                 package.json scripts/devDependencies partial
