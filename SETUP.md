@@ -140,27 +140,36 @@ The seeded bodies are deliberately generic — they should be rewritten in
 place via `bd remember --key <key> ...` as the project's actual paths,
 build commands, and doc layout become known.
 
-### 7. GitHub (FUNDING + branch protections + auto-delete)
+### 7. GitHub (settings, ruleset, security, labels, FUNDING)
 
-- Copy `github/.github/FUNDING.yml` into the target's `.github/FUNDING.yml`.
-- Enable auto-delete of merged branches so feature branches clean up
-  automatically post-merge (matches the assumption in the
-  `gh-auto-delete-on-merge` bd memory):
+Ask whether the repo wants `FUNDING.yml`; if yes, copy
+`github/.github/FUNDING.yml` into the target's `.github/FUNDING.yml`.
 
-```bash
-gh api repos/<owner>/<repo> --method PATCH -f delete_branch_on_merge=true
-```
-
-- For master branch protections: edit
-  `github/master-branch-protections.json` to set `source` to the target repo
-  (`<owner>/<repo>`) and `id` to `null` (so GitHub assigns a new one), then:
+Then apply the stored defaults:
 
 ```bash
-gh api repos/<owner>/<repo>/rulesets --method POST \
-  --input github/master-branch-protections.json
+github/apply-settings.sh <owner>/<repo> --prune-labels [--codeql]
 ```
 
-Do all of these only after the first push so the repo exists on GitHub.
+It applies `github/repo-settings.json` (squash-only merges titled by the PR,
+auto-merge, auto-delete of merged branches — the `gh-auto-delete-on-merge` bd
+memory assumes it — web sign-off, no Projects / Wiki, secret scanning), turns
+on Dependabot alerts and security fixes, creates or updates the
+`github/default-branch-ruleset.json` ruleset, and sets `github/labels.json`.
+Then it re-reads the repo and prints `ok` / `differs` per setting, exiting
+non-zero on any difference. `--check` runs only that comparison.
+
+- `--prune-labels` deletes every label not in `labels.json`. Use it on a new
+  repo; on an existing one, run `--check --prune-labels` first and show the
+  user what would go.
+- `--codeql` enables CodeQL default setup and adds the ruleset rule blocking
+  merges on high-severity alerts. Only for repos in a language CodeQL
+  analyses — on any other, the rule waits for results that never arrive and
+  blocks every merge. Ask the user.
+- The ruleset carries no required status checks; add the repo's CI job names
+  once they exist.
+
+Run this only after the first push so the repo exists on GitHub.
 
 ### 8. Git config
 
