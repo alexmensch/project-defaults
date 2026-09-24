@@ -28,7 +28,7 @@ Confirm with the user (one batched question, not one-by-one):
 Default if user says "just do the standard thing": Eleventy-style + bd + LFS
 + branch protections.
 
-If the target repo isn't a git repo yet, run `git init -b master` first.
+If the target repo isn't a git repo yet, run `git init -b main` first.
 
 ## Steps
 
@@ -185,7 +185,7 @@ git add -A
 git status                    # show user what's staged
 # user confirms, then:
 git commit -m "Initial setup with personal defaults"
-git push -u origin master     # or main
+git push -u origin main
 ```
 
 For bd projects, run `bd dolt push` if a Dolt remote is configured (it usually
